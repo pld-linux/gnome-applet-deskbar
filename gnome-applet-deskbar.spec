@@ -1,21 +1,34 @@
+#
+# TODO:
+# - beagle bcond
+# - evolution bcond
+#
 %define		_realname	deskbar-applet
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	0.2
-Release:	1
+Version:	0.8.0
+Release:	0.1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/browserbookapp/%{_realname}-%{version}.tar.gz
-# Source0-md5:	051558aa867073aa901dc1049ae0ae12
+# Source0-md5:	8757a851d8f081c1236eb658b75e32dc
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
-BuildRequires:	sed >= 4.0
-Requires:	python-gnome-applet
-Requires:	python-gnome-gconf
-Requires(post):	GConf2
+BuildRequires:	GConf2-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	beagle-devel
+BuildRequires:	evolution-data-server-devel
+BuildRequires:	gettext-devel
+BuildRequires:	intltool >= 0.33
+BuildRequires:	pkgconfig
+BuildRequires:	python-pygtk-devel >= 2.8.0
+BuildRequires:	rpmbuild(macros) >= 1.197
+Requires:	pydoc
+Requires:	python-gnome-extras-applet >= 2.12.0
+Requires:	python-gnome-gconf >= 2.12.0
+Requires(post,preun):	GConf2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_appletdirname		%{_datadir}/deskbar-applet
 
 %description
 GNOME applet similar to Google's Deskbar.
@@ -27,23 +40,38 @@ Aplet GNOME podobny do Google Deskbar.
 %setup -q -n %{_realname}-%{version}
 
 %build
-sed -i -e "s:%{_prefix}/libexec:%{_appletdirname}:" DeskbarApplet.server
-
+%{__aclocal} -I m4
+%{__autoconf}
+%{__automake}
+%configure \
+	--disable-schemas-install \
+	--enable-beagle \
+	--enable-evolution
+	
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_appletdirname},%{_libdir}/bonobo/servers}
-install DeskbarApplet.server $RPM_BUILD_ROOT%{_libdir}/bonobo/servers
-install deskbar-applet.py $RPM_BUILD_ROOT%{_appletdirname}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
+%find_lang %{_realname}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%gconf_schema_install
+%gconf_schema_install deskbar-applet.schemas
 
-%files
+%preun
+%gconf_schema_uninstall deskbar-applet.schemas
+
+%files -f %{_realname}.lang
 %defattr(644,root,root,755)
-%doc CHANGELOG
-%attr(755,root,root) %{_appletdirname}
+%doc AUTHORS ChangeLog README
+%attr(755,root,root) %{_libdir}/deskbar-applet/deskbar-applet
 %{_libdir}/bonobo/servers/*.server
+%{_libdir}/deskbar-applet
+%{py_sitescriptdir}/deskbar
+%{_datadir}/deskbar-applet
+%{_pixmapsdir}/*
+%{_sysconfdir}/gconf/schemas/deskbar-applet.schemas
