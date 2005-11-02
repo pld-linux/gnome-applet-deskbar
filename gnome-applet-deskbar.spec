@@ -7,12 +7,13 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	0.8.2
-Release:	0.1
+Version:	0.8.3
+Release:	0.9
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/browserbookapp/%{_realname}-%{version}.tar.gz
-# Source0-md5:	762dde3a98bb98907532e501520fae59
+# Source0-md5:	b9f0b7d427527f7ff449c5b5a47cf028
+Patch0:		%{name}-pyc.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel
 BuildRequires:	autoconf
@@ -24,7 +25,6 @@ BuildRequires:	intltool >= 0.33
 BuildRequires:	pkgconfig
 BuildRequires:	python-pygtk-devel >= 2.8.0
 BuildRequires:	rpmbuild(macros) >= 1.197
-%{?with_evolution:Requires:	evolution}
 Requires:	pydoc
 Requires:	python-gnome-extras-applet >= 2.12.0
 Requires:	python-gnome-gconf >= 2.12.0
@@ -41,6 +41,7 @@ Aplet GNOME podobny do Google Deskbar.
 
 %prep
 %setup -q -n %{_realname}-%{version}
+%patch0 -p1
 
 %build
 %{__aclocal} -I m4
@@ -55,10 +56,12 @@ Aplet GNOME podobny do Google Deskbar.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	pythondir=%{py_sitedir}
 
-rm -f $RPM_BUILD_ROOT%{py_sitescriptdir}/deskbar/*.py
-rm -f $RPM_BUILD_ROOT%{py_sitescriptdir}/deskbar/{beagle,evolution,iconentry,keybinder}/*.{la,py}
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*.py
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/{beagle,evolution,iconentry,keybinder}/*.{la,py}
+rm -f $RPM_BUILD_ROOT%{_libdir}/deskbar-applet/handlers/*.py
 
 %find_lang %{_realname}
 
@@ -73,29 +76,30 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{_realname}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog README deskbar/handlers/google-live-help.txt
 %{_datadir}/deskbar-applet
 %dir %{_libdir}/deskbar-applet
 %attr(755,root,root) %{_libdir}/deskbar-applet/deskbar-applet
-%{_libdir}/deskbar-applet/handlers
+%dir %{_libdir}/deskbar-applet/handlers
+%{_libdir}/deskbar-applet/handlers/*.py[co]
 %{_libdir}/bonobo/servers/*.server
-%dir %{py_sitescriptdir}/deskbar
+%dir %{py_sitedir}/deskbar
 %if %{with beagle}
-%dir %{py_sitescriptdir}/deskbar/beagle
-%{py_sitescriptdir}/deskbar/beagle/*.py[co]
-%attr(755,root,root) %{py_sitescriptdir}/deskbar/beagle/*.so
+%dir %{py_sitedir}/deskbar/beagle
+%{py_sitedir}/deskbar/beagle/*.py[co]
+%attr(755,root,root) %{py_sitedir}/deskbar/beagle/*.so
 %endif
 %if %{with evolution}
-%dir %{py_sitescriptdir}/deskbar/evolution
-%{py_sitescriptdir}/deskbar/evolution/*.py[co]
-%attr(755,root,root) %{py_sitescriptdir}/deskbar/evolution/*.so
+%dir %{py_sitedir}/deskbar/evolution
+%{py_sitedir}/deskbar/evolution/*.py[co]
+%attr(755,root,root) %{py_sitedir}/deskbar/evolution/*.so
 %endif
-%dir %{py_sitescriptdir}/deskbar/iconentry
-%dir %{py_sitescriptdir}/deskbar/keybinder
-%{py_sitescriptdir}/deskbar/*.py[co]
-%{py_sitescriptdir}/deskbar/iconentry/*.py[co]
-%{py_sitescriptdir}/deskbar/keybinder/*.py[co]
-%attr(755,root,root) %{py_sitescriptdir}/deskbar/iconentry/*.so
-%attr(755,root,root) %{py_sitescriptdir}/deskbar/keybinder/*.so
+%dir %{py_sitedir}/deskbar/iconentry
+%dir %{py_sitedir}/deskbar/keybinder
+%{py_sitedir}/deskbar/*.py[co]
+%{py_sitedir}/deskbar/iconentry/*.py[co]
+%{py_sitedir}/deskbar/keybinder/*.py[co]
+%attr(755,root,root) %{py_sitedir}/deskbar/iconentry/*.so
+%attr(755,root,root) %{py_sitedir}/deskbar/keybinder/*.so
 %{_pixmapsdir}/*
 %{_sysconfdir}/gconf/schemas/deskbar-applet.schemas
