@@ -14,6 +14,7 @@ Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/browserbookapp/%{_realname}-%{version}.tar.gz
 # Source0-md5:	b9f0b7d427527f7ff449c5b5a47cf028
 Patch0:		%{name}-pyc.patch
+Patch1:		%{name}-files_handler.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel
 BuildRequires:	autoconf
@@ -42,6 +43,7 @@ Aplet GNOME podobny do Google Deskbar.
 %prep
 %setup -q -n %{_realname}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__aclocal} -I m4
