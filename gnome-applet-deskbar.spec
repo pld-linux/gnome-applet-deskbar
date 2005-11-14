@@ -7,12 +7,12 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	0.8.4
+Version:	0.8.5
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://dl.sourceforge.net/browserbookapp/%{_realname}-%{version}.tar.gz
-# Source0-md5:	590ac908dd8890aef9492aabf0a0c78a
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/0.8/%{_realname}-%{version}.tar.bz2
+# Source0-md5:	dfff9bce1b3743c406a79d01d9a70041
 Patch0:		%{name}-pyc.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel
@@ -60,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 	pythondir=%{py_sitedir}
 
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*.py
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/{beagle,evolution,iconentry,keybinder}/*.{la,py}
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/{beagle,evolution,gnomedesktop,iconentry,keybinder}/*.{la,py}
 rm -f $RPM_BUILD_ROOT%{_libdir}/deskbar-applet/handlers/*.py
 
 %find_lang %{_realname}
@@ -94,11 +94,14 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/deskbar/evolution/*.py[co]
 %attr(755,root,root) %{py_sitedir}/deskbar/evolution/*.so
 %endif
+%dir %{py_sitedir}/deskbar/gnomedesktop
 %dir %{py_sitedir}/deskbar/iconentry
 %dir %{py_sitedir}/deskbar/keybinder
 %{py_sitedir}/deskbar/*.py[co]
+%{py_sitedir}/deskbar/gnomedesktop/*.py[co]
 %{py_sitedir}/deskbar/iconentry/*.py[co]
 %{py_sitedir}/deskbar/keybinder/*.py[co]
+%attr(755,root,root) %{py_sitedir}/deskbar/gnomedesktop/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/iconentry/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/keybinder/*.so
 %{_pixmapsdir}/*
