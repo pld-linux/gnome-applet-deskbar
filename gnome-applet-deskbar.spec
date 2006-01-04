@@ -6,12 +6,12 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	0.8.6.1
+Version:	0.8.7
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/0.8/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	6a4d4169cdb568f5555e3c824a856637
+# Source0-md5:	6ecb74c123b66aa2874d88b5b7cfbaf6
 Patch0:		%{name}-pyc.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel
