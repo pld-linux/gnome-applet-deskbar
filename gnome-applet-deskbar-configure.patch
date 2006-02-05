@@ -1,0 +1,11 @@
+diff -aurN deskbar-applet-2.13.90/configure.ac deskbar-applet-2.13.90.orig/configure.ac
+--- deskbar-applet-2.13.90/configure.ac	2006-01-30 23:30:31.000000000 +0100
++++ deskbar-applet-2.13.90.orig/configure.ac	2006-01-31 17:31:26.690754000 +0100
+@@ -70,7 +70,6 @@
+ )
+ AC_SUBST(DESKBAR_CFLAGS)
+ AC_SUBST(DESKBAR_LIBS)
+-AM_CHECK_PYMOD(gnomeapplet,,,AC_MSG_ERROR([gnomeapplet not found]))
+ 
+ dnl ****************************************************************************
+ dnl * Check for evolution's libebook to build the evolution handler
