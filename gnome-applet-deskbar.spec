@@ -6,14 +6,13 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.13.90.1
+Version:	2.13.91
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.13/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	2854ec4881c39189ff2a01346d7b8f97
+# Source0-md5:	693c3221d73e8a6fe59144249e6deb43
 Patch0:		%{name}-pyc.patch
-Patch1:		%{name}-configure.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel
 BuildRequires:	autoconf
@@ -42,7 +41,6 @@ Aplet GNOME podobny do Google Deskbar.
 %prep
 %setup -q -n %{_realname}-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__aclocal} -I m4
@@ -95,20 +93,25 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/deskbar/gnomedesktop
 %dir %{py_sitedir}/deskbar/iconentry
 %dir %{py_sitedir}/deskbar/keybinder
+%dir %{py_sitedir}/deskbar/osutils
 %dir %{py_sitedir}/deskbar/ui
 %dir %{py_sitedir}/deskbar/ui/completion
 %dir %{py_sitedir}/deskbar/ui/cuemiac
+%dir %{py_sitedir}/deskbar/ui/entriac
 
 %{py_sitedir}/deskbar/gnomedesktop/*.py[co]
 %{py_sitedir}/deskbar/iconentry/*.py[co]
 %{py_sitedir}/deskbar/keybinder/*.py[co]
+%{py_sitedir}/deskbar/osutils/*.py[co]
 %{py_sitedir}/deskbar/*.py[co]
 %{py_sitedir}/deskbar/ui/completion/*.py[co]
 %{py_sitedir}/deskbar/ui/cuemiac/*.py[co]
+%{py_sitedir}/deskbar/ui/entriac/*.py[co]
 %{py_sitedir}/deskbar/ui/*.py[co]
 %attr(755,root,root) %{py_sitedir}/deskbar/gnomedesktop/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/iconentry/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/keybinder/*.so
+%attr(755,root,root) %{py_sitedir}/deskbar/osutils/*.so
 
 %{_pixmapsdir}/*
 %{_sysconfdir}/gconf/schemas/deskbar-applet.schemas
