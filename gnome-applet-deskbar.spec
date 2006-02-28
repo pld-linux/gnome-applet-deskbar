@@ -25,11 +25,11 @@ BuildRequires:	pkgconfig
 BuildRequires:	python-gnome-desktop-devel >= 2.13.3
 BuildRequires:	python-pygtk-devel >= 2.8.0
 BuildRequires:	rpmbuild(macros) >= 1.197
+Requires(post,preun):	GConf2
 Requires:	pydoc
 Requires:	python-gnome-desktop-applet >= 2.13.3
 Requires:	python-gnome-gconf >= 2.12.0
 Requires:	python-gnome-ui >= 2.12.0
-Requires(post,preun):	GConf2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -49,7 +49,7 @@ Aplet GNOME podobny do Google Deskbar.
 %configure \
 	--disable-schemas-install \
 	--%{!?with_evolution:dis}%{?with_evolution:en}able-evolution
-	
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
