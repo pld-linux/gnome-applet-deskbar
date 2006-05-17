@@ -19,15 +19,15 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_evolution:BuildRequires:	evolution-data-server-devel}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.10
+BuildRequires:	gnome-desktop-devel >= 2.14.0
 BuildRequires:	intltool >= 0.33
 BuildRequires:	pkgconfig
-BuildRequires:	python-gnome-desktop-devel >= 2.13.3
+BuildRequires:	python-gnome-desktop-devel >= 2.14.0
 BuildRequires:	python-pygtk-devel >= 2.8.0
 BuildRequires:	rpmbuild(macros) >= 1.197
 Requires(post,preun):	GConf2
 Requires:	pydoc
-Requires:	python-gnome-desktop-applet >= 2.13.3
+Requires:	python-gnome-desktop-applet >= 2.14.0
 Requires:	python-gnome-gconf >= 2.12.0
 Requires:	python-gnome-ui >= 2.12.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
