@@ -6,12 +6,12 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	0.8.7
+Version:	2.14.1.1
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/0.8/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	6ecb74c123b66aa2874d88b5b7cfbaf6
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.14/%{_realname}-%{version}.tar.bz2
+# Source0-md5:	9264c4cf5eaab4ac99009aea393d30ff
 Patch0:		%{name}-pyc.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel
@@ -19,16 +19,17 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_evolution:BuildRequires:	evolution-data-server-devel}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.10
+BuildRequires:	gnome-desktop-devel >= 2.14.0
 BuildRequires:	intltool >= 0.33
 BuildRequires:	pkgconfig
+BuildRequires:	python-gnome-desktop-devel >= 2.14.0
 BuildRequires:	python-pygtk-devel >= 2.8.0
 BuildRequires:	rpmbuild(macros) >= 1.197
+Requires(post,preun):	GConf2
 Requires:	pydoc
-Requires:	python-gnome-extras-applet >= 2.12.0
+Requires:	python-gnome-desktop-applet >= 2.14.0
 Requires:	python-gnome-gconf >= 2.12.0
 Requires:	python-gnome-ui >= 2.12.0
-Requires(post,preun):	GConf2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -48,7 +49,7 @@ Aplet GNOME podobny do Google Deskbar.
 %configure \
 	--disable-schemas-install \
 	--%{!?with_evolution:dis}%{?with_evolution:en}able-evolution
-	
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -57,7 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 	pythondir=%{py_sitedir}
 
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*.py
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/{evolution,gnomedesktop,iconentry,keybinder}/*.{la,py}
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*.{la,py}
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*/*.{la,py}
 rm -f $RPM_BUILD_ROOT%{_libdir}/deskbar-applet/handlers/*.py
 
 %find_lang %{_realname}
@@ -91,12 +93,25 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/deskbar/gnomedesktop
 %dir %{py_sitedir}/deskbar/iconentry
 %dir %{py_sitedir}/deskbar/keybinder
-%{py_sitedir}/deskbar/*.py[co]
+%dir %{py_sitedir}/deskbar/osutils
+%dir %{py_sitedir}/deskbar/ui
+%dir %{py_sitedir}/deskbar/ui/completion
+%dir %{py_sitedir}/deskbar/ui/cuemiac
+%dir %{py_sitedir}/deskbar/ui/entriac
+
 %{py_sitedir}/deskbar/gnomedesktop/*.py[co]
 %{py_sitedir}/deskbar/iconentry/*.py[co]
 %{py_sitedir}/deskbar/keybinder/*.py[co]
+%{py_sitedir}/deskbar/osutils/*.py[co]
+%{py_sitedir}/deskbar/*.py[co]
+%{py_sitedir}/deskbar/ui/completion/*.py[co]
+%{py_sitedir}/deskbar/ui/cuemiac/*.py[co]
+%{py_sitedir}/deskbar/ui/entriac/*.py[co]
+%{py_sitedir}/deskbar/ui/*.py[co]
 %attr(755,root,root) %{py_sitedir}/deskbar/gnomedesktop/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/iconentry/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/keybinder/*.so
+%attr(755,root,root) %{py_sitedir}/deskbar/osutils/*.so
+
 %{_pixmapsdir}/*
 %{_sysconfdir}/gconf/schemas/deskbar-applet.schemas
