@@ -6,30 +6,31 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.14.2
+Version:	2.15.2
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.14/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	382379d0c4ca4bd73f14b25d3a04b7cc
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.15/%{_realname}-%{version}.tar.bz2
+# Source0-md5:	07d71c5a74bc988669544d9658f7482c
 Patch0:		%{name}-pyc.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
-BuildRequires:	GConf2-devel
+BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_evolution:BuildRequires:	evolution-data-server-devel}
+%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.7.2}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.14.0
-BuildRequires:	intltool >= 0.33
+BuildRequires:	gnome-desktop-devel >= 2.15.2
+BuildRequires:	intltool >= 0.35
 BuildRequires:	pkgconfig
-BuildRequires:	python-gnome-desktop-devel >= 2.14.0
-BuildRequires:	python-pygtk-devel >= 2.8.0
+BuildRequires:	python-gnome-desktop-devel >= 2.15.2
+BuildRequires:	python-pygtk-devel >= 2.9.0
 BuildRequires:	rpmbuild(macros) >= 1.197
-Requires(post,preun):	GConf2
+Requires(post,preun):	GConf2 >= 2.14.0
+Requires(post,preun):	gtk+2 >= 2:2.9.2
 Requires:	pydoc
-Requires:	python-gnome-desktop-applet >= 2.14.0
-Requires:	python-gnome-gconf >= 2.12.0
-Requires:	python-gnome-ui >= 2.12.0
+Requires:	python-gnome-desktop-applet >= 2.15.2
+Requires:	python-gnome-gconf >= 2.15.1
+Requires:	python-gnome-ui >= 2.15.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -69,9 +70,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %gconf_schema_install deskbar-applet.schemas
+gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
 
 %preun
 %gconf_schema_uninstall deskbar-applet.schemas
+gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
 
 %files -f %{_realname}.lang
 %defattr(644,root,root,755)
@@ -95,7 +98,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/deskbar/keybinder
 %dir %{py_sitedir}/deskbar/osutils
 %dir %{py_sitedir}/deskbar/ui
-%dir %{py_sitedir}/deskbar/ui/completion
 %dir %{py_sitedir}/deskbar/ui/cuemiac
 %dir %{py_sitedir}/deskbar/ui/entriac
 
@@ -104,7 +106,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/deskbar/keybinder/*.py[co]
 %{py_sitedir}/deskbar/osutils/*.py[co]
 %{py_sitedir}/deskbar/*.py[co]
-%{py_sitedir}/deskbar/ui/completion/*.py[co]
 %{py_sitedir}/deskbar/ui/cuemiac/*.py[co]
 %{py_sitedir}/deskbar/ui/entriac/*.py[co]
 %{py_sitedir}/deskbar/ui/*.py[co]
@@ -113,5 +114,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/deskbar/keybinder/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/osutils/*.so
 
-%{_pixmapsdir}/*
+%{_iconsdir}/hicolor/*/apps/*
 %{_sysconfdir}/gconf/schemas/deskbar-applet.schemas
