@@ -28,6 +28,7 @@ BuildRequires:	rpmbuild(macros) >= 1.197
 Requires(post,preun):	GConf2 >= 2.14.0
 Requires(post,preun):	gtk+2 >= 2:2.9.2
 Requires:	pydoc
+Requires:	python-elementtree
 Requires:	python-gnome-desktop-applet >= 2.15.3
 Requires:	python-gnome-gconf >= 2.15.1
 Requires:	python-gnome-ui >= 2.15.1
