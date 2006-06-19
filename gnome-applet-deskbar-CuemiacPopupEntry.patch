@@ -1,0 +1,17 @@
+--- deskbar-applet-2.15.3/deskbar/ui/cuemiac/CuemiacPopupEntry.py.orig	2006-06-12 17:36:36.000000000 -0400
++++ deskbar-applet-2.15.3/deskbar/ui/cuemiac/CuemiacPopupEntry.py	2006-06-15 14:30:55.000000000 -0400
+@@ -115,11 +115,12 @@
+ 				print "WARNING in CuemiacEntryPopup : No toplevel window for entry!"
+ 				return
+ 
++		self.popup_window.update_position()
++		self.popup_window.show_all()
++
+ 		self.view.realize()
+ 		self.selection.unselect_all()
+ 		
+-		self.popup_window.update_position()
+-		self.popup_window.show_all ()
+ 		self.view.grab_focus()
+ 
+ 		# Grab pointer
