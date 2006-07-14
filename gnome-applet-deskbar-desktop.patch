@@ -1,0 +1,13 @@
+diff -aurN deskbar-applet-2.15.4.orig/data/deskbar-applet.desktop.in.in deskbar-applet-2.15.4/data/deskbar-applet.desktop.in.in
+--- deskbar-applet-2.15.4.orig/data/deskbar-applet.desktop.in.in	2006-07-05 19:06:11.000000000 +0200
++++ deskbar-applet-2.15.4/data/deskbar-applet.desktop.in.in	2006-07-14 20:59:20.026538586 +0200
+@@ -5,7 +5,7 @@
+ _Name=Deskbar Applet
+ _GenericName=Desktop search
+ _Comment=Search your computer and the internet quickly
+-Icon=deskbar-applet.svg
++Icon=deskbar-applet
+ Exec=@LIBDIR@/deskbar-applet/deskbar-applet --popup
+-Categories=GNOME;Applet;Dictionary;Utility;Network;
++Categories=GTK;GNOME;Utility;
+ OnlyShowIn=GNOME;
