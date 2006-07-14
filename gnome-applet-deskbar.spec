@@ -6,33 +6,33 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.15.3
-Release:	2
+Version:	2.15.4
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.15/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	97562c5c5935b9f580e73afc876c7a93
+# Source0-md5:	563ca79ec39bd4da9e7a9500ce5c9a67
 Patch0:		%{name}-pyc.patch
-Patch1:		%{name}-CuemiacPopupEntry.patch
+Patch1:		%{name}-desktop.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.7.3}
+%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.7.4}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.15.2
+BuildRequires:	gnome-desktop-devel >= 2.15.4
 BuildRequires:	intltool >= 0.35
 BuildRequires:	pkgconfig
-BuildRequires:	python-gnome-desktop-devel >= 2.15.3
-BuildRequires:	python-pygtk-devel >= 2.9.2
+BuildRequires:	python-gnome-desktop-devel >= 2.15.4
+BuildRequires:	python-pygtk-devel >= 2.9.3
 BuildRequires:	rpmbuild(macros) >= 1.197
 Requires(post,preun):	GConf2 >= 2.14.0
-Requires(post,preun):	gtk+2 >= 2:2.9.2
+Requires(post,preun):	gtk+2 >= 2:2.10.0
 Requires:	pydoc
 Requires:	python-elementtree
-Requires:	python-gnome-desktop-applet >= 2.15.3
-Requires:	python-gnome-gconf >= 2.15.2
-Requires:	python-gnome-ui >= 2.15.2
+Requires:	python-gnome-desktop-applet >= 2.15.4
+Requires:	python-gnome-gconf >= 2.15.4
+Requires:	python-gnome-ui >= 2.15.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -50,6 +50,7 @@ Aplet GNOME podobny do Google Deskbar.
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
+LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	--disable-schemas-install \
 	--%{!?with_evolution:dis}%{?with_evolution:en}able-evolution
@@ -105,6 +106,7 @@ gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
 %dir %{py_sitedir}/deskbar/ui
 %dir %{py_sitedir}/deskbar/ui/cuemiac
 %dir %{py_sitedir}/deskbar/ui/entriac
+%dir %{py_sitedir}/deskbar/ui/window
 %dir %{py_sitedir}/deskbar/updater
 %{py_sitedir}/deskbar/gdmclient/*.py[co]
 %{py_sitedir}/deskbar/gnomedesktop/*.py[co]
@@ -114,6 +116,7 @@ gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
 %{py_sitedir}/deskbar/*.py[co]
 %{py_sitedir}/deskbar/ui/cuemiac/*.py[co]
 %{py_sitedir}/deskbar/ui/entriac/*.py[co]
+%{py_sitedir}/deskbar/ui/window/*.py[co]
 %{py_sitedir}/deskbar/ui/*.py[co]
 %{py_sitedir}/deskbar/updater/*.py[co]
 %attr(755,root,root) %{py_sitedir}/deskbar/gdmclient/*.so
@@ -123,5 +126,6 @@ gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
 %attr(755,root,root) %{py_sitedir}/deskbar/osutils/*.so
 
 %{_datadir}/dbus-1/services/*.service
+%{_desktopdir}/*.desktop
 %{_iconsdir}/hicolor/*/apps/*
 %{_sysconfdir}/gconf/schemas/deskbar-applet.schemas
