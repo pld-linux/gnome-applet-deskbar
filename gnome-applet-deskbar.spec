@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_without	evolution	# build without evolution support
+%bcond_with	beagle # Build with beagle support
 #
 %define		_realname	deskbar-applet
 Summary:	GNOME applet similar to Google's Deskbar
@@ -18,6 +19,7 @@ URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	autoconf
 BuildRequires:	automake
+%{?with_beagle:BuildRequires:	beagle-devel}
 %{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.7.4}
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-desktop-devel >= 2.15.4
