@@ -6,33 +6,33 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.15.4
+Version:	2.15.90.1
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.15/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	563ca79ec39bd4da9e7a9500ce5c9a67
+# Source0-md5:	90b6354ccc99460529e8d3272c7b46af
 Patch0:		%{name}-pyc.patch
 Patch1:		%{name}-desktop.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.7.4}
+%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.7.90.1}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.15.4
+BuildRequires:	gnome-desktop-devel >= 2.15.90
 BuildRequires:	intltool >= 0.35
 BuildRequires:	pkgconfig
-BuildRequires:	python-gnome-desktop-devel >= 2.15.4
+BuildRequires:	python-gnome-desktop-devel >= 2.15.90
 BuildRequires:	python-pygtk-devel >= 2.9.3
-BuildRequires:	rpmbuild(macros) >= 1.197
+BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,preun):	GConf2 >= 2.14.0
-Requires(post,preun):	gtk+2 >= 2:2.10.0
+Requires(post,preun):	gtk+2 >= 2:2.10.1
 Requires:	pydoc
 Requires:	python-elementtree
-Requires:	python-gnome-desktop-applet >= 2.15.4
-Requires:	python-gnome-gconf >= 2.15.4
-Requires:	python-gnome-ui >= 2.15.4
+Requires:	python-gnome-desktop-applet >= 2.15.90
+Requires:	python-gnome-gconf >= 2.15.90
+Requires:	python-gnome-ui >= 2.15.90
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -50,7 +50,6 @@ Aplet GNOME podobny do Google Deskbar.
 %{__aclocal} -I m4
 %{__autoconf}
 %{__automake}
-LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	--disable-schemas-install \
 	--%{!?with_evolution:dis}%{?with_evolution:en}able-evolution
@@ -74,11 +73,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %gconf_schema_install deskbar-applet.schemas
-gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
+%update_icon_cache hicolor
 
 %preun
 %gconf_schema_uninstall deskbar-applet.schemas
-gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
+%update_icon_cache hicolor
 
 %files -f %{_realname}.lang
 %defattr(644,root,root,755)
