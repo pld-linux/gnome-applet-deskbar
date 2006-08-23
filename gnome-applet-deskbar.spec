@@ -6,21 +6,20 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.15.91
+Version:	2.15.92
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.15/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	2e3ee26af253286d2f0be845d42c023c
+# Source0-md5:	c8bc08cf06d1b56c6c61d6edcaefb9f6
 Patch0:		%{name}-pyc.patch
-Patch1:		%{name}-desktop.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.7.91}
+%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.7.92}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.15.91
+BuildRequires:	gnome-desktop-devel >= 2.15.92
 BuildRequires:	intltool >= 0.35
 BuildRequires:	pkgconfig
 BuildRequires:	python-gnome-desktop-devel >= 2.15.90
@@ -30,8 +29,8 @@ Requires(post,preun):	GConf2 >= 2.14.0
 Requires(post,preun):	gtk+2 >= 2:2.10.1
 Requires:	pydoc
 Requires:	python-gnome-desktop-applet >= 2.15.90
-Requires:	python-gnome-gconf >= 2.15.90
-Requires:	python-gnome-ui >= 2.15.90
+Requires:	python-gnome-gconf >= 2.15.91
+Requires:	python-gnome-ui >= 2.15.91
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -43,7 +42,6 @@ Aplet GNOME podobny do Google Deskbar.
 %prep
 %setup -q -n %{_realname}-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__aclocal} -I m4
@@ -120,6 +118,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/deskbar/keybinder/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/osutils/*.so
 
-%{_desktopdir}/*.desktop
 %{_iconsdir}/hicolor/*/apps/*
 %{_sysconfdir}/gconf/schemas/deskbar-applet.schemas
