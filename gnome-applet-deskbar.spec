@@ -6,27 +6,27 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.16.0
-Release:	2
+Version:	2.16.1
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.16/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	9f14a65f75142cd5b233bf9376a1f946
+# Source0-md5:	b236c4d3d70fbc20164ba208de84e5db
 Patch0:		%{name}-pyc.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
-BuildRequires:	GConf2-devel >= 2.14.0
+BuildRequires:	GConf2-devel >= 2.16.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.8.0}
+%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.8.1}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.16.0
+BuildRequires:	gnome-desktop-devel >= 2.16.1
 BuildRequires:	intltool >= 0.35
 BuildRequires:	pkgconfig
 BuildRequires:	python-gnome-desktop-devel >= 2.16.0
-BuildRequires:	python-pygtk-devel >= 2.10.1
+BuildRequires:	python-pygtk-devel >= 2.10.3
 BuildRequires:	rpmbuild(macros) >= 1.311
-Requires(post,preun):	GConf2 >= 2.14.0
-Requires(post,preun):	gtk+2 >= 2:2.10.3
+Requires(post,preun):	GConf2 >= 2.16.0
+Requires(post,preun):	gtk+2 >= 2:2.10.6
 Requires:	pydoc
 Requires:	python-gnome-desktop-applet >= 2.16.0
 Requires:	python-gnome-gconf >= 2.16.0
