@@ -6,12 +6,12 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.16.1
+Version:	2.16.2
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.16/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	b236c4d3d70fbc20164ba208de84e5db
+# Source0-md5:	6a4780813a55e2f464e69cdfac89894d
 Patch0:		%{name}-pyc.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel >= 2.16.0
@@ -19,18 +19,19 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.8.1}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.16.1
-BuildRequires:	intltool >= 0.35
+BuildRequires:	gnome-desktop-devel >= 2.16.2
+BuildRequires:	intltool >= 0.35.0
 BuildRequires:	pkgconfig
 BuildRequires:	python-gnome-desktop-devel >= 2.16.0
 BuildRequires:	python-pygtk-devel >= 2.10.3
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,preun):	GConf2 >= 2.16.0
-Requires(post,preun):	gtk+2 >= 2:2.10.6
+Requires(post,postun):	gtk+2 >= 2:2.10.6
+Requires(post,postun):	hicolor-icon-theme
 Requires:	pydoc
 Requires:	python-gnome-desktop-applet >= 2.16.0
-Requires:	python-gnome-gconf >= 2.16.0
-Requires:	python-gnome-ui >= 2.16.0
+Requires:	python-gnome-gconf >= 2.16.2
+Requires:	python-gnome-ui >= 2.16.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -74,6 +75,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %preun
 %gconf_schema_uninstall deskbar-applet.schemas
+
+%postun
 %update_icon_cache hicolor
 
 %files -f %{_realname}.lang
