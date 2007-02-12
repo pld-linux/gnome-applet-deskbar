@@ -4,7 +4,7 @@
 #
 %define		_realname	deskbar-applet
 Summary:	GNOME applet similar to Google's Deskbar
-Summary(pl):	Aplet GNOME podobny do Google Deskbar
+Summary(pl.UTF-8):   Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
 Version:	2.16.2
 Release:	1
@@ -37,7 +37,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 GNOME applet similar to Google's Deskbar.
 
-%description -l pl
+%description -l pl.UTF-8
 Aplet GNOME podobny do Google Deskbar.
 
 %prep
