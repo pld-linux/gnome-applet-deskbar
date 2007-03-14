@@ -6,23 +6,23 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.17.92
+Version:	2.18.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.17/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	5ef8ef785a88e4a828214e609ec9396b
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.18/%{_realname}-%{version}.tar.bz2
+# Source0-md5:	2fb3bfc4d1a657adf175fa444a2309f0
 Patch0:		%{name}-pyc.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel >= 2.18.0.1
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.9.92}
+%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.10.0}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.17.92
+BuildRequires:	gnome-desktop-devel >= 2.18.0
 BuildRequires:	intltool >= 0.35.5
 BuildRequires:	pkgconfig
-BuildRequires:	python-gnome-desktop-devel >= 2.17.92
+BuildRequires:	python-gnome-desktop-devel >= 2.18.0
 BuildRequires:	python-pygtk-devel >= 2:2.10.4
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
@@ -30,9 +30,9 @@ Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	pydoc
-Requires:	python-gnome-desktop-applet >= 2.17.93
-Requires:	python-gnome-gconf >= 2.17.92
-Requires:	python-gnome-ui >= 2.17.92
+Requires:	python-gnome-desktop-applet >= 2.18.0
+Requires:	python-gnome-gconf >= 2.18.0
+Requires:	python-gnome-ui >= 2.18.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
