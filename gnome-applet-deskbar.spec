@@ -6,12 +6,12 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.19.91
-Release:	0.1
+Version:	2.19.92
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.19/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	128f73573622fb18cc46a02a706476c1
+# Source0-md5:	cc93d968b7cafdb8ccf3c20fc4f250fd
 Patch0:		%{name}-pyc.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel >= 2.18.0.1
@@ -66,7 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*.py
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*.{la,py}
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*/*.{la,py}
-rm -f $RPM_BUILD_ROOT%{_libdir}/deskbar-applet/modules/*.py
+rm -f $RPM_BUILD_ROOT%{_libdir}/deskbar-applet/modules-2.20-compatible/*.py
 
 %find_lang %{_realname}
 %find_lang deskbar --with-gnome
@@ -94,8 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/deskbar-applet
 %dir %{_libdir}/deskbar-applet
 %attr(755,root,root) %{_libdir}/deskbar-applet/deskbar-applet
-%dir %{_libdir}/deskbar-applet/modules
-%{_libdir}/deskbar-applet/modules/*.py[co]
+%dir %{_libdir}/deskbar-applet/modules-2.20-compatible
+%{_libdir}/deskbar-applet/modules-2.20-compatible/*.py[co]
 %{_libdir}/bonobo/servers/*.server
 %dir %{py_sitedir}/deskbar
 
