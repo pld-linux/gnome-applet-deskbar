@@ -6,12 +6,12 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.18.1
+Version:	2.20.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.18/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	6e0ea0d4140f9e7b0ee75d819a74172f
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.20/%{_realname}-%{version}.tar.bz2
+# Source0-md5:	3b7ae77476f7b11e53e50c8751e4ca1f
 Patch0:		%{name}-pyc.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
 BuildRequires:	GConf2-devel >= 2.18.0.1
@@ -19,10 +19,10 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.10.0}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.18.0
+BuildRequires:	gnome-desktop-devel >= 2.20.0
 BuildRequires:	intltool >= 0.35.5
 BuildRequires:	pkgconfig
-BuildRequires:	python-gnome-desktop-devel >= 2.18.0
+BuildRequires:	python-gnome-desktop-devel >= 2.20.0
 BuildRequires:	python-pygtk-devel >= 2:2.10.4
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
@@ -66,7 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*.py
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*.{la,py}
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*/*.{la,py}
-rm -f $RPM_BUILD_ROOT%{_libdir}/deskbar-applet/handlers/*.py
+rm -f $RPM_BUILD_ROOT%{_libdir}/deskbar-applet/modules-2.20-compatible/*.py
 
 %find_lang %{_realname}
 %find_lang deskbar --with-gnome
@@ -90,48 +90,60 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{_realname}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
+%{_sysconfdir}/gconf/schemas/deskbar-applet.schemas
 %{_datadir}/deskbar-applet
 %dir %{_libdir}/deskbar-applet
 %attr(755,root,root) %{_libdir}/deskbar-applet/deskbar-applet
-%dir %{_libdir}/deskbar-applet/handlers
-%{_libdir}/deskbar-applet/handlers/*.py[co]
+%dir %{_libdir}/deskbar-applet/modules-2.20-compatible
+%{_libdir}/deskbar-applet/modules-2.20-compatible/*.py[co]
 %{_libdir}/bonobo/servers/*.server
 %dir %{py_sitedir}/deskbar
 
 %if %{with evolution}
-%dir %{py_sitedir}/deskbar/evolution
-%{py_sitedir}/deskbar/evolution/*.py[co]
-%attr(755,root,root) %{py_sitedir}/deskbar/evolution/*.so
+%dir %{py_sitedir}/deskbar/handlers/evolution
+%{py_sitedir}/deskbar/handlers/evolution/*.py[co]
+%attr(755,root,root) %{py_sitedir}/deskbar/handlers/evolution/*.so
 %endif
 
-%dir %{py_sitedir}/deskbar/gdmclient
-%dir %{py_sitedir}/deskbar/gnomedesktop
-%dir %{py_sitedir}/deskbar/iconentry
-%dir %{py_sitedir}/deskbar/keybinder
+%dir %{py_sitedir}/deskbar/handlers
+%dir %{py_sitedir}/deskbar/handlers/actions
+%dir %{py_sitedir}/deskbar/handlers/gdmclient
+%dir %{py_sitedir}/deskbar/core/gnomedesktop
+%dir %{py_sitedir}/deskbar/core
+%dir %{py_sitedir}/deskbar/ui/iconentry
+%dir %{py_sitedir}/deskbar/core/keybinder
 %dir %{py_sitedir}/deskbar/osutils
 %dir %{py_sitedir}/deskbar/ui
 %dir %{py_sitedir}/deskbar/ui/cuemiac
-%dir %{py_sitedir}/deskbar/ui/entriac
-%dir %{py_sitedir}/deskbar/ui/window
-%dir %{py_sitedir}/deskbar/updater
-%{py_sitedir}/deskbar/gdmclient/*.py[co]
-%{py_sitedir}/deskbar/gnomedesktop/*.py[co]
-%{py_sitedir}/deskbar/iconentry/*.py[co]
-%{py_sitedir}/deskbar/keybinder/*.py[co]
+%dir %{py_sitedir}/deskbar/ui/preferences
+%dir %{py_sitedir}/deskbar/interfaces
+%dir %{py_sitedir}/deskbar/core/updater
+%{py_sitedir}/deskbar/handlers/*.py[co]
+%{py_sitedir}/deskbar/handlers/actions/*.py[co]
+%{py_sitedir}/deskbar/handlers/gdmclient/*.py[co]
+%{py_sitedir}/deskbar/core/gnomedesktop/*.py[co]
+%{py_sitedir}/deskbar/core/*.py[co]
+%{py_sitedir}/deskbar/ui/iconentry/*.py[co]
+%{py_sitedir}/deskbar/core/keybinder/*.py[co]
 %{py_sitedir}/deskbar/osutils/*.py[co]
 %{py_sitedir}/deskbar/*.py[co]
 %{py_sitedir}/deskbar/ui/cuemiac/*.py[co]
-%{py_sitedir}/deskbar/ui/entriac/*.py[co]
-%{py_sitedir}/deskbar/ui/window/*.py[co]
+%{py_sitedir}/deskbar/ui/preferences/*.py[co]
+%{py_sitedir}/deskbar/interfaces/*.py[co]
 %{py_sitedir}/deskbar/ui/*.py[co]
-%{py_sitedir}/deskbar/updater/*.py[co]
-%attr(755,root,root) %{py_sitedir}/deskbar/gdmclient/*.so
-%attr(755,root,root) %{py_sitedir}/deskbar/gnomedesktop/*.so
-%attr(755,root,root) %{py_sitedir}/deskbar/iconentry/*.so
-%attr(755,root,root) %{py_sitedir}/deskbar/keybinder/*.so
+%{py_sitedir}/deskbar/core/updater/*.py[co]
+%attr(755,root,root) %{py_sitedir}/deskbar/handlers/gdmclient/*.so
+%attr(755,root,root) %{py_sitedir}/deskbar/core/gnomedesktop/*.so
+%attr(755,root,root) %{py_sitedir}/deskbar/ui/iconentry/*.so
+%attr(755,root,root) %{py_sitedir}/deskbar/core/keybinder/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/osutils/*.so
 %dir %{_omf_dest_dir}/deskbar
 %{_omf_dest_dir}/deskbar/deskbar-C.omf
+%lang(en_GB) %{_omf_dest_dir}/deskbar/deskbar-en_GB.omf
+%lang(es) %{_omf_dest_dir}/deskbar/deskbar-es.omf
+%lang(fr) %{_omf_dest_dir}/deskbar/deskbar-fr.omf
+%lang(oc) %{_omf_dest_dir}/deskbar/deskbar-oc.omf
+%lang(sv) %{_omf_dest_dir}/deskbar/deskbar-sv.omf
+%lang(uk) %{_omf_dest_dir}/deskbar/deskbar-uk.omf
 %{_pkgconfigdir}/deskbar-applet.pc
 %{_iconsdir}/hicolor/*/apps/*
-%{_sysconfdir}/gconf/schemas/deskbar-applet.schemas
