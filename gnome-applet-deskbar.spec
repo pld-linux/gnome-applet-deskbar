@@ -33,6 +33,7 @@ Requires:	pydoc
 Requires:	python-gnome-desktop-applet >= 2.18.0
 Requires:	python-gnome-gconf >= 2.18.0
 Requires:	python-gnome-ui >= 2.18.0
+Suggests:	python-beagle
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
