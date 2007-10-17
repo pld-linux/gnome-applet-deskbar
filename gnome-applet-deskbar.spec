@@ -6,33 +6,34 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.20.0
+Version:	2.20.1
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.20/%{_realname}-%{version}.tar.bz2
-# Source0-md5:	3b7ae77476f7b11e53e50c8751e4ca1f
+# Source0-md5:	ba23f3a629b6f7287ff905e76e395466
 Patch0:		%{name}-pyc.patch
 URL:		http://browserbookapp.sourceforge.net/deskbar.html
-BuildRequires:	GConf2-devel >= 2.18.0.1
+BuildRequires:	GConf2-devel >= 2.20.1
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.10.0}
+%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.12.0}
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-desktop-devel >= 2.20.0
-BuildRequires:	intltool >= 0.35.5
+BuildRequires:	intltool >= 0.36.2
 BuildRequires:	pkgconfig
+BuildRequires:	python-dbus-devel >= 0.80.2
 BuildRequires:	python-gnome-desktop-devel >= 2.20.0
-BuildRequires:	python-pygtk-devel >= 2:2.10.4
+BuildRequires:	python-pygtk-devel >= 2:2.12.0
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	pydoc
-Requires:	python-gnome-desktop-applet >= 2.18.0
-Requires:	python-gnome-gconf >= 2.18.0
-Requires:	python-gnome-ui >= 2.18.0
+Requires:	python-gnome-desktop-applet >= 2.20.0
+Requires:	python-gnome-gconf >= 2.20.0
+Requires:	python-gnome-ui >= 2.20.0
 Suggests:	python-beagle
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -140,6 +141,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/deskbar/osutils/*.so
 %dir %{_omf_dest_dir}/deskbar
 %{_omf_dest_dir}/deskbar/deskbar-C.omf
+%lang(ca) %{_omf_dest_dir}/deskbar/deskbar-ca.omf
 %lang(en_GB) %{_omf_dest_dir}/deskbar/deskbar-en_GB.omf
 %lang(es) %{_omf_dest_dir}/deskbar/deskbar-es.omf
 %lang(fr) %{_omf_dest_dir}/deskbar/deskbar-fr.omf
