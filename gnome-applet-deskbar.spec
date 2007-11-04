@@ -7,7 +7,7 @@ Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
 Version:	2.20.1
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.20/%{_realname}-%{version}.tar.bz2
@@ -35,6 +35,8 @@ Requires:	python-gnome-desktop-applet >= 2.20.0
 Requires:	python-gnome-gconf >= 2.20.0
 Requires:	python-gnome-ui >= 2.20.0
 Suggests:	python-beagle
+# sr@Latn vs. sr@latin
+Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -70,6 +72,8 @@ rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*.{la,py}
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*/*.{la,py}
 rm -f $RPM_BUILD_ROOT%{_libdir}/deskbar-applet/modules-2.20-compatible/*.py
 
+[ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
+	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
 %find_lang %{_realname}
 %find_lang deskbar --with-gnome
 cat deskbar.lang >> %{_realname}.lang
