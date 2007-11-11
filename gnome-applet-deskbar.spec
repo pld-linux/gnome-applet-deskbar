@@ -13,7 +13,7 @@ Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.20/%{_realname}-%{version}.tar.bz2
 # Source0-md5:	ba23f3a629b6f7287ff905e76e395466
 Patch0:		%{name}-pyc.patch
-URL:		http://browserbookapp.sourceforge.net/deskbar.html
+URL:		http://raphael.slinckx.net/deskbar/
 BuildRequires:	GConf2-devel >= 2.20.1
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -25,6 +25,8 @@ BuildRequires:	pkgconfig
 BuildRequires:	python-dbus-devel >= 0.80.2
 BuildRequires:	python-gnome-desktop-devel >= 2.20.0
 BuildRequires:	python-pygtk-devel >= 2:2.12.0
+# support for --with-omf in find_lang.sh
+BuildRequires:	rpm-build >= 4.4.9-10
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
@@ -49,6 +51,9 @@ Aplet GNOME podobny do Google Deskbar.
 %setup -q -n %{_realname}-%{version}
 %patch0 -p1
 
+sed -i -e s#sr\@Latn#sr\@latin# po/LINGUAS
+mv -f po/sr\@{Latn,latin}.po
+
 %build
 %{__intltoolize}
 %{__aclocal} -I m4
@@ -72,11 +77,7 @@ rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*.{la,py}
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*/*.{la,py}
 rm -f $RPM_BUILD_ROOT%{_libdir}/deskbar-applet/modules-2.20-compatible/*.py
 
-[ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
-	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
-%find_lang %{_realname}
-%find_lang deskbar --with-gnome
-cat deskbar.lang >> %{_realname}.lang
+%find_lang %{name} --with-gnome --with-omf --all-name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -93,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 %scrollkeeper_update_postun
 %update_icon_cache hicolor
 
-%files -f %{_realname}.lang
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
 %{_sysconfdir}/gconf/schemas/deskbar-applet.schemas
@@ -143,14 +144,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/deskbar/ui/iconentry/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/core/keybinder/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/osutils/*.so
-%dir %{_omf_dest_dir}/deskbar
-%{_omf_dest_dir}/deskbar/deskbar-C.omf
-%lang(ca) %{_omf_dest_dir}/deskbar/deskbar-ca.omf
-%lang(en_GB) %{_omf_dest_dir}/deskbar/deskbar-en_GB.omf
-%lang(es) %{_omf_dest_dir}/deskbar/deskbar-es.omf
-%lang(fr) %{_omf_dest_dir}/deskbar/deskbar-fr.omf
-%lang(oc) %{_omf_dest_dir}/deskbar/deskbar-oc.omf
-%lang(sv) %{_omf_dest_dir}/deskbar/deskbar-sv.omf
-%lang(uk) %{_omf_dest_dir}/deskbar/deskbar-uk.omf
 %{_pkgconfigdir}/deskbar-applet.pc
 %{_iconsdir}/hicolor/*/apps/*
