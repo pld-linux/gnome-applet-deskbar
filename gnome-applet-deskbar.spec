@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_without	evolution	# build without evolution support
 #
-%define		_realname	deskbar-applet
+%define		realname	deskbar-applet
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
@@ -10,7 +10,7 @@ Version:	2.20.1
 Release:	2
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.20/%{_realname}-%{version}.tar.bz2
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.20/%{realname}-%{version}.tar.bz2
 # Source0-md5:	ba23f3a629b6f7287ff905e76e395466
 Patch0:		%{name}-pyc.patch
 URL:		http://raphael.slinckx.net/deskbar/
@@ -25,9 +25,9 @@ BuildRequires:	pkgconfig
 BuildRequires:	python-dbus-devel >= 0.80.2
 BuildRequires:	python-gnome-desktop-devel >= 2.20.0
 BuildRequires:	python-pygtk-devel >= 2:2.12.0
-# support for --with-omf in find_lang.sh
-BuildRequires:	rpm-build >= 4.4.9-10
+BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
+BuildRequires:	sed >= 4.0
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
@@ -48,10 +48,10 @@ GNOME applet similar to Google's Deskbar.
 Aplet GNOME podobny do Google Deskbar.
 
 %prep
-%setup -q -n %{_realname}-%{version}
+%setup -q -n %{realname}-%{version}
 %patch0 -p1
 
-sed -i -e s#sr\@Latn#sr\@latin# po/LINGUAS
+sed -i -e 's#sr\@Latn#sr\@latin#' po/LINGUAS
 mv -f po/sr\@{Latn,latin}.po
 
 %build
