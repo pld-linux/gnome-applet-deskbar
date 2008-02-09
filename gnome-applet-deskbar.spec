@@ -47,12 +47,24 @@ GNOME applet similar to Google's Deskbar.
 %description -l pl.UTF-8
 Aplet GNOME podobny do Google Deskbar.
 
+%package devel
+Summary:	GNOME Deskbar applet development files
+Summary(pl.UTF-8):	Pliki programistyczne apletu GNOME Deskbar
+Group:		Development
+Requires:	python-pygtk-devel >= 2:2.12.0
+
+%description devel
+GNOME Deskbar applet development files.
+
+%description devel -l pl.UTF-8
+Pliki programistyczne apletu GNOME Deskbar.
+
 %prep
 %setup -q -n %{realname}-%{version}
 %patch0 -p1
 
-sed -i -e 's#sr\@Latn#sr\@latin#' po/LINGUAS
-mv -f po/sr\@{Latn,latin}.po
+sed -i -e 's#sr@Latn#sr@latin#' po/LINGUAS
+mv -f po/sr@{Latn,latin}.po
 
 %build
 %{__intltoolize}
@@ -144,5 +156,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/deskbar/ui/iconentry/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/core/keybinder/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/osutils/*.so
-%{_pkgconfigdir}/deskbar-applet.pc
 %{_iconsdir}/hicolor/*/apps/*
+
+%files devel
+%defattr(644,root,root,755)
+%{_pkgconfigdir}/deskbar-applet.pc
