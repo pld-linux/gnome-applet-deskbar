@@ -6,21 +6,25 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.21.5
+Version:	2.21.91
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.21/%{realname}-%{version}.tar.bz2
-# Source0-md5:	21a3ccccee842f92ef29d3c63ea41630
+# Source0-md5:	e76e880a1a4e5a45b110cdfa0eb0b7b8
 Patch0:		%{name}-pyc.patch
 URL:		http://raphael.slinckx.net/deskbar/
-BuildRequires:	GConf2-devel >= 2.20.1
+BuildRequires:	GConf2-devel >= 2.21.90
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.12.0}
+%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 2.21.91}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.20.0
-BuildRequires:	intltool >= 0.36.2
+BuildRequires:	gnome-common >= 2.20.0
+BuildRequires:	gnome-desktop-devel >= 2.21.91
+BuildRequires:	gnome-doc-utils >= 0.12.1
+BuildRequires:	gtk+2-devel >= 2:2.12.8
+BuildRequires:	intltool >= 0.37.0
+BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	python-dbus-devel >= 0.80.2
 BuildRequires:	python-gnome-desktop-devel >= 2.20.0
@@ -47,17 +51,31 @@ GNOME applet similar to Google's Deskbar.
 %description -l pl.UTF-8
 Aplet GNOME podobny do Google Deskbar.
 
+%package devel
+Summary:	GNOME Deskbar applet development files
+Summary(pl.UTF-8):	Pliki programistyczne apletu GNOME Deskbar
+Group:		Development
+Requires:	python-pygtk-devel >= 2:2.12.0
+
+%description devel
+GNOME Deskbar applet development files.
+
+%description devel -l pl.UTF-8
+Pliki programistyczne apletu GNOME Deskbar.
+
 %prep
 %setup -q -n %{realname}-%{version}
 %patch0 -p1
 
-sed -i -e 's#sr\@Latn#sr\@latin#' po/LINGUAS
-mv -f po/sr\@{Latn,latin}.po
+sed -i -e 's#sr@Latn#sr@latin#' po/LINGUAS
+mv -f po/sr@{Latn,latin}.po
 
 %build
 %{__intltoolize}
+%{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 	--disable-schemas-install \
@@ -147,5 +165,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/deskbar/core/keybinder/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/core/_userdirs/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/osutils/*.so
-%{_pkgconfigdir}/deskbar-applet.pc
 %{_iconsdir}/hicolor/*/apps/*
+
+%files devel
+%defattr(644,root,root,755)
+%{_pkgconfigdir}/deskbar-applet.pc
