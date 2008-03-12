@@ -6,24 +6,28 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.20.3
-Release:	2
+Version:	2.22.0.1
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.20/%{realname}-%{version}.tar.bz2
-# Source0-md5:	f84abfede0bbe5b172b24f581550e4a0
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.22/%{realname}-%{version}.tar.bz2
+# Source0-md5:	ec335345998e5ca6c71b058904a264e4
 Patch0:		%{name}-pyc.patch
 URL:		http://raphael.slinckx.net/deskbar/
-BuildRequires:	GConf2-devel >= 2.20.1
+BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 1.12.0}
+%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 2.22.0}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-desktop-devel >= 2.20.0
-BuildRequires:	intltool >= 0.36.2
+BuildRequires:	gnome-common >= 2.20.0
+BuildRequires:	gnome-desktop-devel >= 2.22.0
+BuildRequires:	gnome-doc-utils >= 0.12.1
+BuildRequires:	gtk+2-devel >= 2:2.12.8
+BuildRequires:	intltool >= 0.37.0
+BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	python-dbus-devel >= 0.80.2
-BuildRequires:	python-gnome-desktop-devel >= 2.20.0
+BuildRequires:	python-gnome-desktop-devel >= 2.22.0
 BuildRequires:	python-pygtk-devel >= 2:2.12.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
@@ -33,9 +37,9 @@ Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	pydoc
-Requires:	python-gnome-desktop-applet >= 2.20.0
-Requires:	python-gnome-gconf >= 2.20.0
-Requires:	python-gnome-ui >= 2.20.0
+Requires:	python-gnome-desktop-applet >= 2.22.0
+Requires:	python-gnome-gconf >= 2.22.0
+Requires:	python-gnome-ui >= 2.22.0
 Suggests:	python-beagle
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
@@ -68,8 +72,10 @@ mv -f po/sr@{Latn,latin}.po
 
 %build
 %{__intltoolize}
+%{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 	--disable-schemas-install \
@@ -137,6 +143,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/deskbar/ui/preferences
 %dir %{py_sitedir}/deskbar/interfaces
 %dir %{py_sitedir}/deskbar/core/updater
+%dir %{py_sitedir}/deskbar/core/_userdirs
 %{py_sitedir}/deskbar/handlers/*.py[co]
 %{py_sitedir}/deskbar/handlers/actions/*.py[co]
 %{py_sitedir}/deskbar/handlers/gdmclient/*.py[co]
@@ -151,10 +158,12 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/deskbar/interfaces/*.py[co]
 %{py_sitedir}/deskbar/ui/*.py[co]
 %{py_sitedir}/deskbar/core/updater/*.py[co]
+%{py_sitedir}/deskbar/core/_userdirs/*.py[co]
 %attr(755,root,root) %{py_sitedir}/deskbar/handlers/gdmclient/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/core/gnomedesktop/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/ui/iconentry/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/core/keybinder/*.so
+%attr(755,root,root) %{py_sitedir}/deskbar/core/_userdirs/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/osutils/*.so
 %{_iconsdir}/hicolor/*/apps/*
 
