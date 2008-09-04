@@ -6,12 +6,12 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.23.3
+Version:	2.23.91
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.23/%{realname}-%{version}.tar.bz2
-# Source0-md5:	e354022b26f8577b2c36b5b3ea856e2e
+# Source0-md5:	4eb92bf68c88d6540a9e5079aae90d6c
 Patch0:		%{name}-pyc.patch
 URL:		http://raphael.slinckx.net/deskbar/
 BuildRequires:	GConf2-devel >= 2.22.0
@@ -66,9 +66,6 @@ Pliki programistyczne apletu GNOME Deskbar.
 %prep
 %setup -q -n %{realname}-%{version}
 %patch0 -p1
-
-sed -i -e 's#sr@Latn#sr@latin#' po/LINGUAS
-mv -f po/sr@{Latn,latin}.po
 
 %build
 %{__intltoolize}
@@ -133,7 +130,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/deskbar/handlers
 %dir %{py_sitedir}/deskbar/handlers/actions
 %dir %{py_sitedir}/deskbar/handlers/gdmclient
-%dir %{py_sitedir}/deskbar/core/gnomedesktop
 %dir %{py_sitedir}/deskbar/core
 %dir %{py_sitedir}/deskbar/ui/iconentry
 %dir %{py_sitedir}/deskbar/core/keybinder
@@ -147,7 +143,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/deskbar/handlers/*.py[co]
 %{py_sitedir}/deskbar/handlers/actions/*.py[co]
 %{py_sitedir}/deskbar/handlers/gdmclient/*.py[co]
-%{py_sitedir}/deskbar/core/gnomedesktop/*.py[co]
 %{py_sitedir}/deskbar/core/*.py[co]
 %{py_sitedir}/deskbar/ui/iconentry/*.py[co]
 %{py_sitedir}/deskbar/core/keybinder/*.py[co]
@@ -160,7 +155,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/deskbar/core/updater/*.py[co]
 %{py_sitedir}/deskbar/core/_userdirs/*.py[co]
 %attr(755,root,root) %{py_sitedir}/deskbar/handlers/gdmclient/*.so
-%attr(755,root,root) %{py_sitedir}/deskbar/core/gnomedesktop/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/ui/iconentry/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/core/keybinder/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/core/_userdirs/*.so
