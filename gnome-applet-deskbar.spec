@@ -6,12 +6,12 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.22.3
-Release:	2
+Version:	2.24.0
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.22/%{realname}-%{version}.tar.bz2
-# Source0-md5:	cbea61704827d84363c3b5b0cb18b2fd
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.24/%{realname}-%{version}.tar.bz2
+# Source0-md5:	5d77c384ecbe993113fe553e327ad819
 Patch0:		%{name}-pyc.patch
 URL:		http://raphael.slinckx.net/deskbar/
 BuildRequires:	GConf2-devel >= 2.22.0
@@ -20,7 +20,7 @@ BuildRequires:	automake
 %{?with_evolution:BuildRequires:	evolution-data-server-devel >= 2.22.0}
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-common >= 2.20.0
-BuildRequires:	gnome-desktop-devel >= 2.22.0
+BuildRequires:	gnome-desktop-devel >= 2.23.3
 BuildRequires:	gnome-doc-utils >= 0.12.1
 BuildRequires:	gtk+2-devel >= 2:2.12.8
 BuildRequires:	intltool >= 0.37.0
@@ -66,9 +66,6 @@ Pliki programistyczne apletu GNOME Deskbar.
 %prep
 %setup -q -n %{realname}-%{version}
 %patch0 -p1
-
-sed -i -e 's#sr@Latn#sr@latin#' po/LINGUAS
-mv -f po/sr@{Latn,latin}.po
 
 %build
 %{__intltoolize}
@@ -133,7 +130,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/deskbar/handlers
 %dir %{py_sitedir}/deskbar/handlers/actions
 %dir %{py_sitedir}/deskbar/handlers/gdmclient
-%dir %{py_sitedir}/deskbar/core/gnomedesktop
 %dir %{py_sitedir}/deskbar/core
 %dir %{py_sitedir}/deskbar/ui/iconentry
 %dir %{py_sitedir}/deskbar/core/keybinder
@@ -147,7 +143,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/deskbar/handlers/*.py[co]
 %{py_sitedir}/deskbar/handlers/actions/*.py[co]
 %{py_sitedir}/deskbar/handlers/gdmclient/*.py[co]
-%{py_sitedir}/deskbar/core/gnomedesktop/*.py[co]
 %{py_sitedir}/deskbar/core/*.py[co]
 %{py_sitedir}/deskbar/ui/iconentry/*.py[co]
 %{py_sitedir}/deskbar/core/keybinder/*.py[co]
@@ -160,7 +155,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/deskbar/core/updater/*.py[co]
 %{py_sitedir}/deskbar/core/_userdirs/*.py[co]
 %attr(755,root,root) %{py_sitedir}/deskbar/handlers/gdmclient/*.so
-%attr(755,root,root) %{py_sitedir}/deskbar/core/gnomedesktop/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/ui/iconentry/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/core/keybinder/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/core/_userdirs/*.so
