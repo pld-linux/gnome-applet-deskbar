@@ -6,40 +6,44 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.24.3
-Release:	2
+Version:	2.26.0
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.24/%{realname}-%{version}.tar.bz2
-# Source0-md5:	8d4d7830967034dd0fae40bb48c0276d
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.26/%{realname}-%{version}.tar.bz2
+# Source0-md5:	168044d1312bf30e71f2ed587d2bffb6
 Patch0:		%{name}-pyc.patch
-URL:		http://raphael.slinckx.net/deskbar/
-BuildRequires:	GConf2-devel >= 2.22.0
+URL:		http://projects.gnome.org/deskbar-applet/
+BuildRequires:	GConf2-devel >= 2.26.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 2.22.0}
+%{?with_evolution:BuildRequires:	evolution-data-server-devel >= 2.24.0}
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-common >= 2.20.0
-BuildRequires:	gnome-desktop-devel >= 2.23.3
+BuildRequires:	gnome-common >= 2.24.0
+BuildRequires:	gnome-desktop-devel >= 2.26.0
 BuildRequires:	gnome-doc-utils >= 0.12.1
-BuildRequires:	gtk+2-devel >= 2:2.12.8
-BuildRequires:	intltool >= 0.37.0
+BuildRequires:	gtk+2-devel >= 2:2.16.0
+BuildRequires:	intltool >= 0.40.0
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 BuildRequires:	python-dbus-devel >= 0.80.2
-BuildRequires:	python-gnome-desktop-devel >= 2.22.0
-BuildRequires:	python-pygtk-devel >= 2:2.12.0
+BuildRequires:	python-gnome-desktop-devel >= 2.26.0
+BuildRequires:	python-gnome-devel >= 2.26.0
+BuildRequires:	python-gnome-extras-devel >= 2.19.0
+BuildRequires:	python-pygobject-devel >= 2.16.0
+BuildRequires:	python-pygtk-devel >= 2:2.14.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
-BuildRequires:	sed >= 4.0
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	pydoc
-Requires:	python-gnome-desktop-applet >= 2.22.0
-Requires:	python-gnome-gconf >= 2.22.0
-Requires:	python-gnome-ui >= 2.22.0
+Requires:	python-dbus
+Requires:	python-gnome-desktop-applet >= 2.26.0
+Requires:	python-gnome-gconf >= 2.26.0
+Requires:	python-gnome-ui >= 2.26.0
+Requires:	python-pygobject >= 2.16.0
 Suggests:	python-beagle
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
@@ -55,7 +59,7 @@ Aplet GNOME podobny do Google Deskbar.
 Summary:	GNOME Deskbar applet development files
 Summary(pl.UTF-8):	Pliki programistyczne apletu GNOME Deskbar
 Group:		Development
-Requires:	python-pygtk-devel >= 2:2.12.0
+Requires:	python-pygtk-devel >= 2:2.14.0
 
 %description devel
 GNOME Deskbar applet development files.
