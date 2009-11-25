@@ -32,6 +32,7 @@ BuildRequires:	python-gnome-devel >= 2.26.0
 BuildRequires:	python-gnome-extras-devel >= 2.19.0
 BuildRequires:	python-pygobject-devel >= 2.16.0
 BuildRequires:	python-pygtk-devel >= 2:2.14.0
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
 Requires(post,postun):	gtk+2
