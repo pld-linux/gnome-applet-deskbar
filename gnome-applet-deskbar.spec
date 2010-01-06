@@ -17,6 +17,7 @@ URL:		http://projects.gnome.org/deskbar-applet/
 BuildRequires:	GConf2-devel >= 2.26.0
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	docbook-dtd42-xml
 %{?with_evolution:BuildRequires:	evolution-data-server-devel >= 2.24.0}
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-common >= 2.24.0
