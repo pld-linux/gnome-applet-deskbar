@@ -6,12 +6,12 @@
 Summary:	GNOME applet similar to Google's Deskbar
 Summary(pl.UTF-8):	Aplet GNOME podobny do Google Deskbar
 Name:		gnome-applet-deskbar
-Version:	2.26.2
+Version:	2.30.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.26/%{realname}-%{version}.tar.bz2
-# Source0-md5:	82bca281838b38b3d9c682ab839b7b6b
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/deskbar-applet/2.30/%{realname}-%{version}.tar.bz2
+# Source0-md5:	af2efe5ba8100f36f963a6ff2a6c05a1
 Patch0:		%{name}-pyc.patch
 URL:		http://projects.gnome.org/deskbar-applet/
 BuildRequires:	GConf2-devel >= 2.26.0
@@ -36,6 +36,7 @@ BuildRequires:	python-pygtk-devel >= 2:2.14.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
+BuildRequires:	sed >= 4.0
 Requires(post,postun):	gtk+2
 Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
@@ -73,6 +74,9 @@ Pliki programistyczne apletu GNOME Deskbar.
 %setup -q -n %{realname}-%{version}
 %patch0 -p1
 
+sed -i -e 's/en@shaw//' po/LINGUAS
+rm -f po/en@shaw.po
+
 %build
 %{__intltoolize}
 %{__libtoolize}
@@ -83,6 +87,7 @@ Pliki programistyczne apletu GNOME Deskbar.
 %configure \
 	--disable-schemas-install \
 	--disable-scrollkeeper \
+	--disable-silent-rules \
 	--%{!?with_evolution:dis}%{?with_evolution:en}able-evolution
 %{__make}
 
@@ -135,7 +140,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{py_sitedir}/deskbar/handlers
 %dir %{py_sitedir}/deskbar/handlers/actions
-%dir %{py_sitedir}/deskbar/handlers/gdmclient
 %dir %{py_sitedir}/deskbar/core
 %dir %{py_sitedir}/deskbar/ui/iconentry
 %dir %{py_sitedir}/deskbar/core/keybinder
@@ -148,7 +152,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/deskbar/core/_userdirs
 %{py_sitedir}/deskbar/handlers/*.py[co]
 %{py_sitedir}/deskbar/handlers/actions/*.py[co]
-%{py_sitedir}/deskbar/handlers/gdmclient/*.py[co]
 %{py_sitedir}/deskbar/core/*.py[co]
 %{py_sitedir}/deskbar/ui/iconentry/*.py[co]
 %{py_sitedir}/deskbar/core/keybinder/*.py[co]
@@ -160,7 +163,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/deskbar/ui/*.py[co]
 %{py_sitedir}/deskbar/core/updater/*.py[co]
 %{py_sitedir}/deskbar/core/_userdirs/*.py[co]
-%attr(755,root,root) %{py_sitedir}/deskbar/handlers/gdmclient/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/ui/iconentry/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/core/keybinder/*.so
 %attr(755,root,root) %{py_sitedir}/deskbar/core/_userdirs/*.so
