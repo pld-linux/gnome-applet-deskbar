@@ -37,7 +37,6 @@ BuildRequires:	python-pygtk-devel >= 2:2.14.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.311
-BuildRequires:	sed >= 4.0
 Requires(post,postun):	gtk-update-icon-cache
 Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	scrollkeeper
@@ -75,9 +74,6 @@ Pliki programistyczne apletu GNOME Deskbar.
 %setup -q -n %{realname}-%{version}
 %patch0 -p1
 
-sed -i -e 's/en@shaw//' po/LINGUAS
-rm -f po/en@shaw.po
-
 %build
 %{__intltoolize}
 %{__libtoolize}
@@ -99,10 +95,10 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	pythondir=%{py_sitedir}
 
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*.py
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*.{la,py}
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*/*.{la,py}
-rm -f $RPM_BUILD_ROOT%{_libdir}/deskbar-applet/modules-2.20-compatible/*.py
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*.py
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*.{la,py}
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/deskbar/*/*/*.{la,py}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/deskbar-applet/modules-2.20-compatible/*.py
 
 %find_lang %{name} --with-gnome --with-omf --all-name
 
